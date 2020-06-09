@@ -8,7 +8,7 @@ import serial
 import adafruit_gps
 import adafruit_lis3dh
 #import adafruit_am2320
-import adafruit_ads1x15.ads1015 as ADS
+import adafruit_ads1x15.ads1115 as ADS
 from adafruit_ads1x15.analog_in import AnalogIn
 
 # THIS IS AN EXACT DUPLICATE OF THE CONNECTIONS.PY FILE IN src/sensors
