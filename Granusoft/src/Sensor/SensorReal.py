@@ -5,6 +5,7 @@ from sensors.X_Load import X_Load
 from sensors.Y_Load import Y_Load
 from sensors.Pot import Pot
 from sensors.IMU import IMU
+from sensors.CamButton import CamButton
 import datetime
 import board
 import busio
@@ -33,6 +34,7 @@ class Sensor:
         self.y_fake = 0
         self.pot_fake = 0
         self.imu_fake = 0
+        self.cam_trig = 0
 
     def get_header_data(self):
         self.sensor_data["Temperature"] = 0 # self.temp.get_data()
@@ -51,6 +53,10 @@ class Sensor:
 
     def get_sensor_keys(self):
         return self.keys
+
+    def get_camtrig(self):
+        self.cam_trig = CamButton.get_data()
+        return self.cam_trig
 
 if __name__ == "__main__":
     sensor = Sensor()
