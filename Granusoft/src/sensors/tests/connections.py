@@ -18,7 +18,7 @@ i2c = busio.I2C(board.SCL, board.SDA, 115200)
 uart = serial.Serial("/dev/ttyS0", baudrate=9600, timeout=3000)
 
 # Temperature and Humidity sensor, off of the I2C pins on bottom right of board
-# am = adafruit_am2320.AM2320(i2c)
+#am = adafruit_am2320.AM2320(i2c)
 
 # Accelerometer, top middle of board
 lis3dh = adafruit_lis3dh.LIS3DH_I2C(i2c)
@@ -38,16 +38,17 @@ SPI_SCLK = 11 #BOARD 23, BCM 11
 SPI_MISO = 9 #BOARD 21, BCM 9
 SPI_MOSI = 10 #BOARD 19, BCM 10
 
-GPIO_PINS = [GPIO1, GPIO2, GPIO3, GPIO4, SPI_CE1, SPI_CE0,\
+GPIO_PINS = [GPIO2, GPIO3, GPIO4, SPI_CE1, SPI_CE0,\
         SPI_SCLK, SPI_MISO, SPI_MOSI]
 
 for pin in GPIO_PINS:
     GPIO.setup(pin, GPIO.OUT)
 
+GPIO.setup(GPIO1, GPIO.IN)
 
 # ADC
-ads1 = ADS.ADS1015(i2c, address=0x49, data_rate = 3300, mode=0)
-ads2 = ADS.ADS1015(i2c, address=0x48, data_rate = 3300, mode=0)
+ads1 = ADS.ADS1115(i2c, address=0x49, data_rate = 860, mode=0)
+ads2 = ADS.ADS1115(i2c, address=0x18, data_rate = 860, mode=0, gain=16)
 CHAN0 = AnalogIn(ads1, ADS.P0)
 CHAN1 = AnalogIn(ads1, ADS.P1)
 CHAN2 = AnalogIn(ads1, ADS.P2)
@@ -63,12 +64,13 @@ X_LOAD_CHAN = CHAN4
 Y_LOAD_CHAN = CHAN2
 
 # Scaling factor for the force sensor
-FORCE_SENSOR_SCALING = 3556.1878
+FORCE_SENSOR_SCALING = 16 # 3556.1878
+# ads2.gain = FORCE_SENSOR_SCALING
 
 # GPS
 gps = adafruit_gps.GPS(uart, debug=False)
 gps.send_command(b'PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0')
-gps.send_command(b'PMTK220,1000')
+gps.send_command(b'PMTK220,500')
 try:
     gps.update()
 except:
