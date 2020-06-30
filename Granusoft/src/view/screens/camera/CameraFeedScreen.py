@@ -89,6 +89,7 @@ class CameraFeedScreen(BaseScreen):
             pass
 
     def on_leave(self):
+        self.event.cancel()
         try:
             self.camera.stop_preview()
         except:
