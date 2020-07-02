@@ -55,7 +55,7 @@ class Sensor:
         return self.keys
 
     def get_camtrig(self):
-        self.cam_trig = CamButton.get_data()
+        self.cam_trig = CamButton().get_data()
         return self.cam_trig
 
 if __name__ == "__main__":

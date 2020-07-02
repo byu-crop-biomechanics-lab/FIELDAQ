@@ -78,9 +78,9 @@ class CameraFeedScreen(BaseScreen):
         except:
             pass # print('Taking Imaginary Picture')
 
-    def check_trig(self):
-        if Sensor.get_camtrig():
-            captureImage()
+    def check_trig(self, obj):
+        if Sensor().get_camtrig():
+            self.captureImage()
         else:
             pass
 
