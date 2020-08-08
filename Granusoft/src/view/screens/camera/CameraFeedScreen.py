@@ -47,6 +47,11 @@ class CameraFeedScreen(BaseScreen):
             self.camera.start_preview(rotation=180,fullscreen=False,window=(230,10,560,460))
         except:
             pass # print('No Camera Found')
+        try:
+            self.camera.shutter_speed = 2000
+            self.camera.iso = 100
+        except:
+            pass
 
     def captureImage(self):
         try:
