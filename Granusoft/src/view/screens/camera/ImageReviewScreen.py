@@ -13,6 +13,14 @@ import datetime
 
 import os
 
+try:
+    from PIL import Image as pili
+except ImportError:
+    print("Failed to import Pillow Library")
+    import pip
+    pip.main(['install', '--user', 'Pillow'])
+    os.system('sudo reboot')
+
 Builder.load_file('view/screens/camera/ImageReviewScreen.kv')
 
 class ImageReviewScreen(BaseScreen):
@@ -20,7 +28,8 @@ class ImageReviewScreen(BaseScreen):
 
     def set_image(self, name):
         self.image_name = name
+        self.image_path = "Images/" + name
 
     def delete_button(self):
         print('We should delete image ' + self.image_name)
-        os.system("rm Images/" + self.image_name)
+        #os.system("rm " + self.image_path)
