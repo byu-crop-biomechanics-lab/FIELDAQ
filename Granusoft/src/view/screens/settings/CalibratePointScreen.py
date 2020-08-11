@@ -3,6 +3,7 @@ from kivy.lang import Builder
 import configurator as config
 from view.BaseScreen import BaseScreen
 from view.input.StrInput import StrInput
+from view.input.SignedFloatInput import SignedFloatInput
 from Sensor import Sensor
 from kivy.properties import StringProperty
 from statistics import median

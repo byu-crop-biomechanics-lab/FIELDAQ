@@ -27,6 +27,9 @@ def show_keyboard(caller, layout):
         elif layout=='text':
             keyboard.layout = "view/keyboard_layouts/text.json"
             keyboard.margin_hint = [0.05, 0.06, 0.05, 0.06]
+        elif layout=='numeric_signed':
+            keyboard.layout = "view/keyboard_layouts/numeric_signed.json"
+            keyboard.margin_hint = [0.05, 0.2, 0.05, 0.2]
         else:
             keyboard.layout = layout
             keyboard.margin_hint = [0.05, 0.06, 0.05, 0.06]
