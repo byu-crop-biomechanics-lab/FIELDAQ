@@ -48,12 +48,16 @@ class CameraFeedScreen(BaseScreen):
         except:
             pass # print('No Camera Found')
         try:
-            self.camera.shutter_speed = 2000
+            self.camera.shutter_speed = 2500
             self.camera.iso = 100
         except:
             pass
 
     def captureImage(self):
+        try:
+            self.camera.shutter_speed = 2500
+        except:
+            pass
         try:
             def decdeg2dms(dd):
                 dd = abs(dd)
