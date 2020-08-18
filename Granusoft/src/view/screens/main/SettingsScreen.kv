@@ -102,6 +102,10 @@
                         root.manager.transition.direction = 'left'
                         root.move_to('cam_main_screen')
                 SettingsButton:
+                    id: barcode_toggle
+                    on_release:
+                        root.toggleBarcode()
+                SettingsButton:
                     text: 'Update\nSoftware'
                     on_release:
                         app.stop()

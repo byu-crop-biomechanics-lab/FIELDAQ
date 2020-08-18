@@ -30,6 +30,11 @@ class SaveDialog(Popup):
     cancel = ObjectProperty(None)
 
 class SettingsScreen(BaseScreen):
+    def on_enter(self):
+        self.barcodeButton = self.ids['barcode_toggle']
+        self.brcd = str(config.get('barcodeScan',"OFF"))
+        self.barcodeButton.text = 'Barcode\nScanner:\n' + self.brcd
+
     def dismiss_popup(self):
         self._popup.dismiss()
 
@@ -48,6 +53,14 @@ class SettingsScreen(BaseScreen):
     def save(self, path, filename):
         config.save_as(os.path.join(path, filename))
         self.dismiss_popup()
+
+    def toggleBarcode(self):
+        if self.brcd == "OFF":
+            self.brcd = "ON"
+        else:
+            self.brcd = "OFF"
+        config.set('barcodeScan',self.brcd)
+        self.barcodeButton.text = 'Barcode\nScanner:\n' + self.brcd
 
     def updateOS(self):
         os.system("git pull")
