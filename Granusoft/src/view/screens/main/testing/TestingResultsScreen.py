@@ -6,6 +6,7 @@ from kivy.lang import Builder
 from kivy.properties import NumericProperty
 from kivy.properties import StringProperty
 from kivy.properties import ListProperty
+from kivy.properties import ObjectProperty
 from kivy.clock import Clock
 from Sensor import Sensor
 import datetime
@@ -18,6 +19,7 @@ from view.StaticList import StaticList
 from view.elements import *
 import configurator as config
 import csv
+from kivy.uix.popup import Popup
 try:
     from sensors.connections import *
 except:
@@ -29,6 +31,11 @@ Builder.load_file('view/screens/main/testing/TestingResultsScreen.kv')
 
 ONE_SEC = 1
 
+class BarcodeDialog(Popup):
+    '''A dialog to load a file.  The load and cancel properties point to the
+    functions called when the load or cancel buttons are pressed.'''
+    dismiss_popup = ObjectProperty(None)
+    save_test = ObjectProperty(None)
 
 class TestingResultsScreen(BaseScreen):
     x_max = NumericProperty(1)
@@ -54,6 +61,7 @@ class TestingResultsScreen(BaseScreen):
         self.graph2 = self.ids['graph_test2']
         self.plot1 = MeshLinePlot(color=[1, 1, 1, 1])
         self.plot2 = MeshLinePlot(color=[1, 1, 1, 1])
+        self.brcd = str(config.get('barcodeScan',"OFF"))
         ts = TestSingleton()
         self.datasets = ts.get_datasets()
         last_index = len(self.datasets) - 1
@@ -99,6 +107,18 @@ class TestingResultsScreen(BaseScreen):
             RLB.background_color = (1,0,0,1)
             RLB.text = "Root\nLodge"
 
+    def dismiss_popup(self):
+        self._popup.dismiss()
+
+    def barcode_popup(self):
+        if self.brcd == "ON":
+            #create Popup
+            self._popup = BarcodeDialog(dismiss_popup=self.dismiss_popup, save_test=self.save_test)
+            self._popup.open()
+            print("We should use the barcode scanner!")
+        else:
+            self.save_test()
+
     def save_test(self):
         ts = TestSingleton()
         self.datasets = ts.get_datasets()
@@ -113,8 +133,12 @@ class TestingResultsScreen(BaseScreen):
         pre_notes = notes["pretest"]
         post_notes = notes["posttest"]
         dt = datetime.datetime.now()
-        filename = 'Tests/' + dt.strftime('%Y_%m_%d_%H_%M_%S') + '.csv'
-
+        if self.brcd == "ON":
+            self.dismiss_popup()
+            filename = 'Tests/barcode.csv'
+            print("We should use the barcode scanner!")
+        else:
+            filename = 'Tests/' + dt.strftime('%Y_%m_%d_%H_%M_%S') + '.csv'
         try:
             gps.update()
         except:
