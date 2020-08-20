@@ -1,0 +1,8 @@
+{
+	"title" : "Barcode",
+	"description" : "A blank keypad for when the barcode is en use",
+	"cols" : 1,
+	"rows": 1,
+	"normal_1": [
+		["\u2a2f", null, "escape", 1]]
+}
