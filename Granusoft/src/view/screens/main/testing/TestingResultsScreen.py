@@ -36,6 +36,10 @@ class BarcodeDialog(Popup):
     functions called when the load or cancel buttons are pressed.'''
     dismiss_popup = ObjectProperty(None)
     save_test = ObjectProperty(None)
+    #
+    # def on_enter(self):
+    #     input = self.ids['barcode_entry']
+    #     input.focus = True
 
 class TestingResultsScreen(BaseScreen):
     x_max = NumericProperty(1)
@@ -115,6 +119,8 @@ class TestingResultsScreen(BaseScreen):
             #create Popup
             self._popup = BarcodeDialog(dismiss_popup=self.dismiss_popup, save_test=self.save_test)
             self._popup.open()
+            input = self._popup.ids['barcode_entry']
+            input.focus = True
             print("We should use the barcode scanner!")
         else:
             self.save_test()

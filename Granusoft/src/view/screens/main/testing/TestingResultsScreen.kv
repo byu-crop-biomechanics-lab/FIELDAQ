@@ -23,15 +23,15 @@
     BoxLayout:
         orientation: 'vertical'
         BarcodeInput:
-            id: barcode_input
+            id: barcode_entry
             font_size: 30
-            size_hint_max_y: 30+15
+            height: 30+10
             halign: 'center'
         BoxLayout:
             orientation: 'horizontal'
             size_hint_y: None
             size_hint_x: 1
-            height: 65
+            height: 55
             NavButton:
                 text: "Skip"
                 on_release: root.save_test()

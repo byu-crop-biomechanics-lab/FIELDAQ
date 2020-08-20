@@ -27,8 +27,8 @@ def show_keyboard(caller, layout):
             keyboard.margin_hint = [0.05, 0.2, 0.05, 0.2]
         elif layout=='barcode':
             keyboard.layout = "view/keyboard_layouts/barcode.json"
-            keyboard.height = 50
-            keyboard.margin_hint = [0.05, 0.05, 0.05, 0.7]
+            keyboard.height = 125
+            keyboard.margin_hint = [0.05, 0.05, 0.05, 0.05]
         elif layout=='text':
             keyboard.layout = "view/keyboard_layouts/text.json"
             keyboard.margin_hint = [0.05, 0.06, 0.05, 0.06]
